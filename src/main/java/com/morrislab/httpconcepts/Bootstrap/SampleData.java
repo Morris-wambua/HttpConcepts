@@ -1,4 +1,4 @@
-package com.morrislab.httpconcepts.Boostrap;
+package com.morrislab.httpconcepts.Bootstrap;
 
 import com.morrislab.httpconcepts.model.Location;
 import com.morrislab.httpconcepts.model.User;
