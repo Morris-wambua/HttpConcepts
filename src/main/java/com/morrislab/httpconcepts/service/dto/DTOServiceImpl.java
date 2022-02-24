@@ -2,7 +2,6 @@ package com.morrislab.httpconcepts.service.dto;
 
 import com.morrislab.httpconcepts.dto.UserLocationDTO;
 import com.morrislab.httpconcepts.model.User;
-import com.morrislab.httpconcepts.repository.LocationRepository;
 import com.morrislab.httpconcepts.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +11,10 @@ import java.util.stream.Collectors;
 @Service
 public class DTOServiceImpl implements DTOService {
 
-    private UserRepository userRepository;
-    private LocationRepository locationRepository;
+    private final UserRepository userRepository;
 
-    public DTOServiceImpl(UserRepository userRepository, LocationRepository locationRepository) {
+    public DTOServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.locationRepository = locationRepository;
     }
 
     @Override
@@ -31,7 +28,7 @@ public class DTOServiceImpl implements DTOService {
     @Override
     public UserLocationDTO convertEntityToDTO( User user) {
 
-        UserLocationDTO userLocationDTO= UserLocationDTO.builder()
+        return UserLocationDTO.builder()
                 .userId(user.getId())
                 .email(user.getEmail())
                 .place(user.getLocation().getPlace())
@@ -39,15 +36,10 @@ public class DTOServiceImpl implements DTOService {
                 .latitude(user.getLocation().getLatitude())
                 .build();
 
-
-        return userLocationDTO;
-
-
-
     }
 
     @Override
-    public List<UserLocationDTO> getSpeficUserDTO(long id) {
+    public List<UserLocationDTO> getSpecificUserDTO(long id) {
         return userRepository.findById(id)
                 .stream()
                 .map(this::convertEntityToDTO)

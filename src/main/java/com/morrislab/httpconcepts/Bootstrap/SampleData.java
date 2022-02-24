@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SampleData implements CommandLineRunner {
 
-    private LocationRepository locationRepository;
-    private UserRepository userRepository;
+    private final LocationRepository locationRepository;
+    private final UserRepository userRepository;
 
     public SampleData(LocationRepository locationRepository, UserRepository userRepository) {
         this.locationRepository = locationRepository;

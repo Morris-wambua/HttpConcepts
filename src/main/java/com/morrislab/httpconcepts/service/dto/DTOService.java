@@ -11,5 +11,5 @@ public interface DTOService {
 
     UserLocationDTO convertEntityToDTO(User user);
 
-    List<UserLocationDTO> getSpeficUserDTO(long id);
+    List<UserLocationDTO> getSpecificUserDTO(long id);
 }

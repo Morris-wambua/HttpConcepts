@@ -27,6 +27,6 @@ public class TestDTOController {
     @GetMapping("get_user_location_dto/{id}")
     public ResponseEntity<List<UserLocationDTO>> getUserLocationDTO(@PathVariable(value = "id") Long id){
 
-        return ResponseEntity.ok(dtoService.getSpeficUserDTO(id));
+        return ResponseEntity.ok(dtoService.getSpecificUserDTO(id));
     }
 }

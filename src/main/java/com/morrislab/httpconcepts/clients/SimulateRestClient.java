@@ -12,14 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.List;
 
 @RestController
 public class SimulateRestClient {
@@ -34,27 +30,27 @@ public class SimulateRestClient {
     static RestTemplate restTemplate =new RestTemplate();
 
    @GetMapping("/consumeGetAllUserApi")
-    public static ResponseEntity<?> callGetAllUsersApi(){
+    public static ResponseEntity<String> callGetAllUsersApi(){
         //create a Http Header
         HttpHeaders headers= new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         headers.set("custom-header", "foo");
 
         //Instantiate an HttpEntity
         HttpEntity <String> entity=new HttpEntity<>("parameters",headers);
 
         //call the RestTemplate
-        ResponseEntity<String> result= restTemplate.exchange(GET_ALL_USERS_API, HttpMethod.GET, entity, String.class);
+       return restTemplate.exchange(GET_ALL_USERS_API,
+               HttpMethod.GET,
+               entity,
+               String.class);
 
-        return result;
     }
     @GetMapping("/consumeGetUserByIdApi/{id}")
     public static User callGetuserByIdApi( @PathVariable Long id){
 
         //call the RestTemplate
-       User user= restTemplate.getForObject(GET_USER_BY_ID_API, User.class, id);
-
-       return user;
+       return restTemplate.getForObject(GET_USER_BY_ID_API, User.class, id);
     }
 
     @PostMapping("/consumeCreateUserApi")
@@ -68,9 +64,8 @@ public class SimulateRestClient {
                        .build())
                .build();
 
-       ResponseEntity <User> userResponseEntity = restTemplate.postForEntity(CREATE_USER_API,userRequestBody, User.class);
+      return restTemplate.postForEntity(CREATE_USER_API,userRequestBody, User.class);
 
-       return userResponseEntity;
     }
 
     @PutMapping("consumeUpdateUserApi/{id}")
